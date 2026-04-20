@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume Feedback Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar">
+        <div class="brand-card">
+          <div class="brand-mark">RF</div>
+          <div>
+            <p class="eyebrow">Product Suite</p>
+            <h1>Resume Feedback Studio</h1>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <button class="nav-button active" data-screen="overview">Overview</button>
+          <button class="nav-button" data-screen="review">Review Studio</button>
+          <button class="nav-button" data-screen="vault">Feedback Vault</button>
+        </nav>
+
+        <section class="sidebar-panel">
+          <p class="panel-label">Session Health</p>
+          <div class="mini-stat">
+            <span>Stored Reviews</span>
+            <strong id="storedCount">0</strong>
+          </div>
+          <div class="mini-stat">
+            <span>Average Score</span>
+            <strong id="averageScore">0</strong>
+          </div>
+          <div class="mini-stat">
+            <span>Latest Review</span>
+            <strong id="latestReview">No data</strong>
+          </div>
+        </section>
+
+        <section class="sidebar-panel">
+          <p class="panel-label">Reviewer Profile</p>
+          <label class="field compact-field">
+            <span>Your Name</span>
+            <input id="reviewerNameInput" placeholder="Recruiter / Mentor" />
+          </label>
+          <button class="secondary-button full-button" id="saveReviewerButton" type="button">Save Profile</button>
+          <p class="form-message" id="reviewerStatus">Local profile is optional.</p>
+        </section>
+
+        <section class="sidebar-panel tips-panel">
+          <p class="panel-label">Review Rules</p>
+          <ul class="tip-list">
+            <li>Quantified achievements score higher than generic responsibilities.</li>
+            <li>Role keywords improve ATS matching when they are used naturally.</li>
+            <li>Project links make technical resumes much stronger.</li>
+          </ul>
+        </section>
+      </aside>
+
+      <main class="main-content">
+        <section class="hero">
+          <div>
+            <p class="eyebrow">Figma-inspired recruiting workflow</p>
+            <h2>Audit resumes, score them instantly, and keep every review stored in one place.</h2>
+            <p class="hero-copy">
+              This full-stack tool captures user input, evaluates resume quality, stores every feedback session,
+              and lets you revisit past reviews through a polished interface.
+            </p>
+          </div>
+        </section>
+
+        <section class="screen active" id="screen-overview">
+          <div class="grid overview-grid">
+            <article class="card metric-card">
+              <p class="card-label">Portfolio Score</p>
+              <div class="score-orb" id="heroScore">--</div>
+              <p class="card-subtext">Most recent resume review score</p>
+            </article>
+
+            <article class="card">
+              <div class="section-heading">
+                <div>
+                  <p class="card-label">Review Pipeline</p>
+                  <h3>What this tool handles</h3>
+                </div>
+              </div>
+              <div class="journey-list">
+                <div class="journey-step">
+                  <strong>1. Collect user input</strong>
+                  <span>Candidate details, target role, portfolio links, resume text, and job description.</span>
+                </div>
+                <div class="journey-step">
+                  <strong>2. Analyze and score</strong>
+                  <span>ATS structure, impact, keyword alignment, technical proof, and action language.</span>
+                </div>
+                <div class="journey-step">
+                  <strong>3. Store and revisit</strong>
+                  <span>Every review is saved locally and displayed inside the feedback vault.</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="section-heading">
+                <div>
+                  <p class="card-label">Live Snapshot</p>
+                  <h3>Latest insights</h3>
+                </div>
+              </div>
+              <div class="insight-grid" id="overviewMetrics">
+                <div class="insight-item">
+                  <span>Words</span>
+                  <strong>0</strong>
+                </div>
+                <div class="insight-item">
+                  <span>JD Match</span>
+                  <strong>0%</strong>
+                </div>
+                <div class="insight-item">
+                  <span>Quantified Bullets</span>
+                  <strong>0</strong>
+                </div>
+                <div class="insight-item">
+                  <span>Priority Fixes</span>
+                  <strong>0</strong>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="screen" id="screen-review">
+          <div class="grid studio-grid">
+            <article class="card form-card">
+              <div class="section-heading">
+                <div>
+                  <p class="card-label">Review Studio</p>
+                  <h3>Create a new feedback session</h3>
+                </div>
+                <div class="button-row compact">
+                  <button class="secondary-button" id="sampleButton" type="button">Load Sample</button>
+                  <button class="ghost-button" id="clearButton" type="button">Clear</button>
+                </div>
+              </div>
+
+              <form id="feedbackForm" class="resume-form">
+                <input name="resumeFileName" type="hidden" />
+                <input name="reviewerName" type="hidden" />
+
+                <div class="field-grid">
+                  <label class="field">
+                    <span>Candidate Name</span>
+                    <input name="candidateName" placeholder="Aarav Sharma" required />
+                  </label>
+                  <label class="field">
+                    <span>Email</span>
+                    <input name="email" type="email" placeholder="aarav@email.com" />
+                  </label>
+                  <label class="field">
+                    <span>Target Role</span>
+                    <input name="targetRole" placeholder="Full Stack Developer" required />
+                  </label>
+                  <label class="field">
+                    <span>Experience Level</span>
+                    <select name="experienceLevel" required>
+                      <option value="">Select level</option>
+                      <option>Student</option>
+                      <option>Fresher</option>
+                      <option>Junior</option>
+                      <option>Mid-Level</option>
+                      <option>Senior</option>
+                    </select>
+                  </label>
+                  <label class="field">
+                    <span>Portfolio URL</span>
+                    <input name="portfolioUrl" placeholder="https://portfolio.example.com" />
+                  </label>
+                  <label class="field">
+                    <span>GitHub URL</span>
+                    <input name="githubUrl" placeholder="https://github.com/username" />
+                  </label>
+                </div>
+
+                <div class="field-grid upload-grid upload-dropzone" id="pdfDropzone">
+                  <label class="field">
+                    <span>Resume PDF Upload</span>
+                    <input id="pdfFileInput" type="file" accept=".pdf,application/pdf" />
+                  </label>
+                  <div class="upload-action">
+                    <button class="secondary-button" id="extractPdfButton" type="button">Extract PDF Text</button>
+                    <p id="pdfStatus" class="form-message">
+                      Upload a PDF to auto-fill the resume field, including scanned PDFs with OCR fallback.
+                    </p>
+                  </div>
+                </div>
+
+                <label class="field">
+                  <span>Job Description or Target Skills</span>
+                  <textarea
+                    name="jobDescription"
+                    rows="6"
+                    placeholder="Paste the job description, must-have skills, or recruiter notes."
+                  ></textarea>
+                </label>
+
+                <label class="field">
+                  <span>Resume Text</span>
+                  <textarea
+                    name="resumeText"
+                    rows="14"
+                    placeholder="Paste the full resume text here for analysis."
+                    required
+                  ></textarea>
+                </label>
+
+                <div class="button-row">
+                  <button class="primary-button" id="submitButton" type="submit">Generate Feedback</button>
+                  <button class="secondary-button" id="updateButton" type="button" disabled>Update Selected</button>
+                  <button class="secondary-button" id="downloadButton" type="button" disabled>Download JSON</button>
+                  <button class="secondary-button" id="reportButton" type="button" disabled>Open PDF Report</button>
+                  <button class="ghost-button" id="csvButton" type="button">Export Vault CSV</button>
+                </div>
+                <p id="formMessage" class="form-message"></p>
+              </form>
+            </article>
+
+            <article class="card builder-card">
+              <div class="section-heading">
+                <div>
+                  <p class="card-label">Smart Resume Builder Mode</p>
+                  <h3>Edit sections and rebuild resume text</h3>
+                </div>
+                <button class="secondary-button" id="buildResumeButton" type="button">Build Resume Text</button>
+              </div>
+              <div class="builder-grid">
+                <label class="field">
+                  <span>Summary</span>
+                  <textarea id="builderSummary" rows="4" placeholder="Write a targeted 2-4 line summary."></textarea>
+                </label>
+                <label class="field">
+                  <span>Skills</span>
+                  <textarea id="builderSkills" rows="4" placeholder="Group role-specific tools and strengths."></textarea>
+                </label>
+                <label class="field">
+                  <span>Experience Bullets</span>
+                  <textarea id="builderExperience" rows="5" placeholder="- Add action + tool + result + metric bullets."></textarea>
+                </label>
+                <label class="field">
+                  <span>Project Bullets</span>
+                  <textarea id="builderProjects" rows="5" placeholder="- Add project scope, stack, ownership, and outcome."></textarea>
+                </label>
+              </div>
+              <p class="form-message">Use the generated suggestions from Feedback Output, then click Build Resume Text to send it into the main resume field.</p>
+            </article>
+
+            <article class="card compare-card">
+              <div class="section-heading">
+                <div>
+                  <p class="card-label">Resume Version Comparison</p>
+                  <h3>Compare old vs improved resume</h3>
+                </div>
+                <button class="secondary-button" id="compareButton" type="button">Compare Versions</button>
+              </div>
+              <div class="feedback-columns">
+                <label class="field">
+                  <span>Old Resume Text</span>
+                  <textarea id="oldResumeText" rows="8" placeholder="Paste the previous resume version."></textarea>
+                </label>
+                <label class="field">
+                  <span>Improved Resume Text</span>
+                  <textarea id="newResumeText" rows="8" placeholder="Paste the improved resume version."></textarea>
+                </label>
+              </div>
+              <div id="compareResult" class="compare-result">Comparison results will appear here.</div>
+            </article>
+
+            <article class="card result-card">
+              <div class="section-heading">
+                <div>
+                  <p class="card-label">Feedback Output</p>
+                  <h3 id="resultTitle">No review selected yet</h3>
+                </div>
+                <span class="status-pill" id="resultBand">Waiting</span>
+              </div>
+
+              <div class="result-score-panel">
+                <div class="result-score-circle" id="resultScore">--</div>
+                <div>
+                  <p class="result-summary" id="resultSummary">
+                    Submit a resume to generate structured feedback, scoring, and keyword analysis.
+                  </p>
+                  <div class="result-metadata" id="resultMetadata">
+                    <span>Metrics will appear here</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="result-tabs" id="resultTabs">
+                <button class="tab-button active" data-result-tab="overview" type="button">Overview</button>
+                <button class="tab-button" data-result-tab="ats" type="button">ATS</button>
+                <button class="tab-button" data-result-tab="sections" type="button">Sections</button>
+                <button class="tab-button" data-result-tab="rewrite" type="button">Rewrite</button>
+                <button class="tab-button" data-result-tab="keywords" type="button">Keywords</button>
+                <button class="tab-button" data-result-tab="interview" type="button">Interview</button>
+              </div>
+
+              <div class="result-tab-panel active" data-result-panel="overview">
+                <div class="category-list" id="categoryList"></div>
+                <div class="feedback-columns">
+                  <div>
+                    <p class="mini-heading">Strengths</p>
+                    <ul class="feedback-list" id="strengthList"></ul>
+                  </div>
+                  <div>
+                    <p class="mini-heading">Improvements</p>
+                    <ul class="feedback-list" id="improvementList"></ul>
+                  </div>
+                </div>
+                <div class="diagnostic-grid">
+                  <div>
+                    <p class="mini-heading">Priority Fixes</p>
+                    <div class="issue-list" id="priorityFixList"></div>
+                  </div>
+                  <div>
+                    <p class="mini-heading">Improvement Roadmap</p>
+                    <div class="roadmap-list" id="roadmapList"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="result-tab-panel" data-result-panel="ats">
+                <div class="diagnostic-grid">
+                  <div>
+                    <p class="mini-heading">ATS Warnings</p>
+                    <div class="issue-list" id="atsWarningList"></div>
+                  </div>
+                  <div>
+                    <p class="mini-heading">Checklist</p>
+                    <div class="checklist-list" id="checklistList"></div>
+                  </div>
+                </div>
+                <p class="mini-heading">Success Badges</p>
+                <div class="badge-grid" id="successBadgeList"></div>
+              </div>
+
+              <div class="result-tab-panel" data-result-panel="sections">
+                <p class="mini-heading">Section Review</p>
+                <div class="section-review-grid" id="sectionReviewList"></div>
+              </div>
+
+              <div class="result-tab-panel" data-result-panel="rewrite">
+                <div class="feedback-columns">
+                  <div>
+                    <p class="mini-heading">Rewrite Guidance</p>
+                    <div class="rewrite-list" id="rewriteSuggestionList"></div>
+                  </div>
+                  <div>
+                    <p class="mini-heading">Before vs After</p>
+                    <div class="rewrite-list" id="beforeAfterList"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="result-tab-panel" data-result-panel="keywords">
+                <div class="feedback-columns">
+                  <div>
+                    <p class="mini-heading">Job Description Match</p>
+                    <div id="jdMatchPanel" class="match-panel">Paste a job description to unlock match scoring.</div>
+                  </div>
+                  <div>
+                    <p class="mini-heading">Keyword Gaps</p>
+                    <div class="chip-wrap" id="keywordGapList"></div>
+                  </div>
+                </div>
+                <p class="mini-heading">Skill Gap Heatmap</p>
+                <div class="heatmap-grid" id="skillHeatmapList"></div>
+                <div class="feedback-columns">
+                  <div>
+                    <p class="mini-heading">Next Steps</p>
+                    <ul class="feedback-list" id="nextStepList"></ul>
+                  </div>
+                  <div>
+                    <p class="mini-heading">Matched Keywords</p>
+                    <div class="chip-wrap" id="keywordHighlightList"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="result-tab-panel" data-result-panel="interview">
+                <p class="mini-heading">Interview Prep From Resume</p>
+                <div class="interview-list" id="interviewPrepList"></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="screen" id="screen-vault">
+          <div class="grid vault-grid">
+            <article class="card vault-card">
+              <div class="section-heading">
+                <div>
+                  <p class="card-label">Feedback Vault</p>
+                  <h3>Stored review sessions</h3>
+                </div>
+                <div class="button-row compact">
+                  <button class="secondary-button" id="refreshButton" type="button">Refresh</button>
+                  <button class="ghost-button" id="vaultCsvButton" type="button">CSV</button>
+                </div>
+              </div>
+              <div class="vault-tools">
+                <input id="vaultSearchInput" placeholder="Search candidate, role, or gap" />
+                <select id="vaultScoreFilter">
+                  <option value="all">All scores</option>
+                  <option value="strong">Strong 80+</option>
+                  <option value="needs">Needs work below 70</option>
+                </select>
+              </div>
+              <div class="history-list" id="historyList"></div>
+            </article>
+
+            <article class="card detail-card">
+              <div class="section-heading">
+                <div>
+                  <p class="card-label">Record Details</p>
+                  <h3 id="detailTitle">Select a saved review</h3>
+                </div>
+              </div>
+              <div id="detailContent" class="detail-content">
+                Stored feedback details, candidate input, and analytics will appear here.
+              </div>
+            </article>
+
+            <article class="card analytics-card">
+              <div class="section-heading">
+                <div>
+                  <p class="card-label">Vault Analytics</p>
+                  <h3>Portfolio-level insights</h3>
+                </div>
+              </div>
+              <div id="analyticsPanel" class="analytics-panel">Analytics will appear after reviews load.</div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
