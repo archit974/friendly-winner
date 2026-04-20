@@ -1,0 +1,21 @@
+{
+  "users": [
+    {
+      "id": "ec64df48-d4fb-47c1-a71b-21c4ae6d4fbc",
+      "name": "Archit Gulia",
+      "email": "architgulia99@gmail.com",
+      "role": "developer",
+      "passwordSalt": "9f4284e37383b3f82bb55ea7b14420be",
+      "passwordHash": "7b1f70aca5e6628d581afc17dafddb57233935baafbccdfa8760932b2922a167a74dc037a17bb7b406ded27c4040d127693b761823d9c074353ba7e12715c148",
+      "createdAt": "2026-04-20T05:36:20.738Z"
+    }
+  ],
+  "sessions": [
+    {
+      "tokenHash": "c84a187ea91fbabca45afedfa97d35437e0bb6259f930d447607fd4d82cb733f",
+      "userId": "ec64df48-d4fb-47c1-a71b-21c4ae6d4fbc",
+      "createdAt": "2026-04-20T05:41:27.062Z",
+      "expiresAt": "2026-04-27T05:41:27.062Z"
+    }
+  ]
+}
